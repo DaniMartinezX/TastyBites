@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tasty_bites/utilities/responsive.dart';
 import 'package:tasty_bites/widgets/figures/circle.dart';
 import 'package:tasty_bites/widgets/register_form.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});

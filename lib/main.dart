@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tasty_bites/constants/routes.dart';
 import 'package:tasty_bites/pages/forgot_password_page.dart';
 import 'package:tasty_bites/pages/home_page.dart';
+import 'package:tasty_bites/pages/random_food_page.dart';
 import 'package:tasty_bites/pages/register_page.dart';
 import 'package:tasty_bites/widgets/login_form.dart';
 
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
       routes: {
         registerRoute: (_) => const RegisterPage(),
         loginRoute: (_) => const LoginForm(),
-        forgotPasswordRoute: (_) => const ForgotPasswordPage()
+        forgotPasswordRoute: (_) => const ForgotPasswordPage(),
+        randomFoodRoute: (_) => const RandomFoodPage()
       },
     );
   }

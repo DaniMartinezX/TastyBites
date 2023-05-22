@@ -93,7 +93,9 @@ class _LoginFormState extends State<LoginForm> {
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, randomFoodRoute);
+                },
                 style: ElevatedButton.styleFrom(
                   shape: const StadiumBorder(),
                   shadowColor: const Color.fromARGB(255, 255, 0, 0),

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -53,7 +54,7 @@ class _RegisterFormState extends State<RegisterForm> {
           const SizedBox(height: 10),
           TextField(
             controller: _email,
-            keyboardType: TextInputType.visiblePassword,
+            keyboardType: TextInputType.emailAddress,
             enableSuggestions: false,
             autocorrect: false,
             decoration: const InputDecoration(
@@ -84,14 +85,23 @@ class _RegisterFormState extends State<RegisterForm> {
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  final email = _email.text;
+                  final password = _password.text;
+                  //Creación del usuario nuevo
+                  final userCredential = await FirebaseAuth.instance
+                      .createUserWithEmailAndPassword(
+                    email: email,
+                    password: password,
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   shape: const StadiumBorder(),
                   shadowColor: const Color.fromARGB(255, 255, 0, 0),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 ),
-                child: const Text('Sign in'),
+                child: const Text('Sign up'),
               ),
             ),
           ),
