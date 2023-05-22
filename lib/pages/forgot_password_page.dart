@@ -2,16 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tasty_bites/utilities/responsive.dart';
 import 'package:tasty_bites/widgets/figures/circle.dart';
-import 'package:tasty_bites/widgets/register_form.dart';
+import 'package:tasty_bites/widgets/forgot_password_form.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+class ForgotPasswordPage extends StatefulWidget {
+  const ForgotPasswordPage({super.key});
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
     final Responsive responsive = Responsive.of(context);
@@ -56,12 +56,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     SizedBox(
                       height: responsive.dp(3),
                     ),
-                    const SizedBox(height: 80),
+                    const SizedBox(height: 60),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          "Hello!",
+                          "Forgot password",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 18,
@@ -70,15 +70,19 @@ class _RegisterPageState extends State<RegisterPage> {
                         )
                       ],
                     ),
+                    const SizedBox(height: 10),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(
-                          "Sign up to get started",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.white70,
+                        SizedBox(
+                          width: 300,
+                          child: Text(
+                            "If you forgot your password, simply enter email and we send you a password reset link",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.white70,
+                            ),
                           ),
                         ),
                       ],
@@ -98,39 +102,17 @@ class _RegisterPageState extends State<RegisterPage> {
                               ]),
                           child: ClipOval(
                             child: Image.network(
-                              'https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-PNG-Pic-Clip-Art-Background.png',
+                              'https://img.freepik.com/free-vector/forgot-password-concept-illustration_114360-1095.jpg?w=2000',
                               width: 90,
                               height: 90,
                             ),
                           ),
                         ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: CupertinoButton(
-                            padding: EdgeInsets.zero,
-                            borderRadius: BorderRadius.circular(30),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.pinkAccent,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: Colors.white,
-                                    width: 2,
-                                  )),
-                              child: const Icon(
-                                Icons.add,
-                                color: Colors.white,
-                              ),
-                            ),
-                            onPressed: () {},
-                          ),
-                        )
                       ],
                     ),
                   ],
                 ),
-                const RegisterForm(),
+                const ForgotPasswordForm(),
                 Positioned(
                     left: 15,
                     top: 15,

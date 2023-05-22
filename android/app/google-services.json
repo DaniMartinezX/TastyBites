@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "264276456420",
+    "project_id": "tasty-bites-repository",
+    "storage_bucket": "tasty-bites-repository.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:264276456420:android:ee91fe7162900e3cbe0df1",
+        "android_client_info": {
+          "package_name": "com.example.tasty_bites"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "264276456420-48olb3ftitoos8n3qdbupcjjnv32bfkv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkRzl-V5ijqCeL4dvNU5Nk9Y_syqEbeOQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "264276456420-48olb3ftitoos8n3qdbupcjjnv32bfkv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

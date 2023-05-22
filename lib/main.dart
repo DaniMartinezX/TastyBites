@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tasty_bites/constants/routes.dart';
+import 'package:tasty_bites/pages/forgot_password_page.dart';
 import 'package:tasty_bites/pages/home_page.dart';
 import 'package:tasty_bites/pages/register_page.dart';
 import 'package:tasty_bites/widgets/login_form.dart';
@@ -22,8 +24,9 @@ class MyApp extends StatelessWidget {
       ),
       home: const HomePage(),
       routes: {
-        RegisterPage.routeName: (_) => const RegisterPage(),
-        LoginForm.routeName: (context) => const LoginForm(),
+        registerRoute: (_) => const RegisterPage(),
+        loginRoute: (_) => const LoginForm(),
+        forgotPasswordRoute: (_) => const ForgotPasswordPage()
       },
     );
   }

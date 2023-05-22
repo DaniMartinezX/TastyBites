@@ -1,28 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:tasty_bites/constants/routes.dart';
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+class ForgotPasswordForm extends StatefulWidget {
+  const ForgotPasswordForm({super.key});
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<ForgotPasswordForm> createState() => _ForgotPasswordFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
   late final TextEditingController _email;
-  late final TextEditingController _password;
 
   @override
   void initState() {
     _email = TextEditingController();
-    _password = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
     _email.dispose();
-    _password.dispose();
     super.dispose();
   }
 
@@ -40,7 +36,7 @@ class _LoginFormState extends State<LoginForm> {
             enableSuggestions: false,
             autocorrect: false,
             decoration: const InputDecoration(
-              hintText: 'Email',
+              hintText: 'Your email adress ...',
               hintStyle: TextStyle(color: Colors.black26),
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.black12),
@@ -54,37 +50,6 @@ class _LoginFormState extends State<LoginForm> {
                   color: Colors.black12,
                 ),
               ),
-            ),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: TextField(
-                    controller: _password,
-                    keyboardType: TextInputType.visiblePassword,
-                    obscureText: true,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    decoration: const InputDecoration(
-                      hintText: 'Password',
-                      hintStyle: TextStyle(color: Colors.black26),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black12),
-                      ),
-                    ),
-                  ),
-                ),
-                TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, forgotPasswordRoute);
-                    },
-                    child: const Text(
-                      'Forgot Password',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ))
-              ],
             ),
           ),
           const SizedBox(height: 10),
@@ -100,7 +65,7 @@ class _LoginFormState extends State<LoginForm> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 ),
-                child: const Text('Sign in'),
+                child: const Text('Send me password reset link'),
               ),
             ),
           ),
@@ -108,21 +73,21 @@ class _LoginFormState extends State<LoginForm> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Text(
-                'Are you new here?',
+                'Have you remembered it?',
                 style: TextStyle(fontSize: 12),
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, registerRoute);
+                  Navigator.pop(context);
                 },
                 child: const Text(
-                  'Sign up',
+                  'Back to login page',
                   style: TextStyle(fontSize: 12),
                 ),
               )
             ],
           ),
-          const SizedBox(height: 150),
+          const SizedBox(height: 180),
         ],
       ),
     );

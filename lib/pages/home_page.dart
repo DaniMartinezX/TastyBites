@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tasty_bites/utils/responsive.dart';
-import 'package:tasty_bites/widgets/circle.dart';
+import 'package:tasty_bites/utilities/responsive.dart';
+import 'package:tasty_bites/widgets/figures/circle.dart';
 import 'package:tasty_bites/widgets/login_form.dart';
 
 class HomePage extends StatefulWidget {
@@ -56,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: responsive.dp(3),
                     ),
-                    const SizedBox(height: 80),
+                    const SizedBox(height: 70),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
