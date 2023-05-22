@@ -2,16 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tasty_bites/utils/responsive.dart';
 import 'package:tasty_bites/widgets/circle.dart';
-import 'package:tasty_bites/widgets/login_form.dart';
+import 'package:tasty_bites/widgets/register_form.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class RegisterPage extends StatefulWidget {
+  static const routeName = 'register';
+  const RegisterPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     final Responsive responsive = Responsive.of(context);
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> {
             child: Stack(
               children: <Widget>[
                 Positioned(
-                  top: -(size.width * 0.8) * 0.2,
+                  top: -(size.width * 0.8) * 0.3,
                   left: -(size.width * 0.8) * 0.2,
                   child: Circle(
                     size: size.width * 0.8,
@@ -41,7 +42,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 Positioned(
-                  top: -(size.width * 0.8) * 0.3,
+                  top: -(size.width * 0.8) * 0.2,
                   right: -(size.width * 0.8) * 0.2,
                   child: Circle(
                     size: size.width * 0.8,
@@ -56,15 +57,15 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: responsive.dp(3),
                     ),
-                    const SizedBox(height: 80),
+                    const SizedBox(height: 100),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          "Tasty bites",
+                          "Hello!",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 26,
+                            fontSize: 18,
                             color: Color.fromARGB(225, 255, 255, 255),
                           ),
                         )
@@ -74,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          "Welcome back",
+                          "Sign up to get started",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 14,
@@ -98,17 +99,53 @@ class _HomePageState extends State<HomePage> {
                               ]),
                           child: ClipOval(
                             child: Image.network(
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZoUNmHqCYmQfa48D_H08tew0jlBNRVpAO9A&usqp=CAU',
+                              'https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-PNG-Pic-Clip-Art-Background.png',
                               width: 90,
                               height: 90,
                             ),
                           ),
                         ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: CupertinoButton(
+                            padding: EdgeInsets.zero,
+                            borderRadius: BorderRadius.circular(30),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.pinkAccent,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.white,
+                                    width: 2,
+                                  )),
+                              child: const Icon(
+                                Icons.add,
+                                color: Colors.white,
+                              ),
+                            ),
+                            onPressed: () {},
+                          ),
+                        )
                       ],
                     ),
                   ],
                 ),
-                const LoginForm(),
+                const RegisterForm(),
+                Positioned(
+                    left: 15,
+                    top: 15,
+                    child: SafeArea(
+                      child: CupertinoButton(
+                        color: Colors.black26,
+                        padding: const EdgeInsets.all(10),
+                        borderRadius: BorderRadius.circular(30),
+                        child: const Icon(Icons.arrow_back),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ))
               ],
             ),
           ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tasty_bites/pages/home_page.dart';
+import 'package:tasty_bites/pages/register_page.dart';
+import 'package:tasty_bites/widgets/login_form.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,6 +21,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const HomePage(),
+      routes: {
+        RegisterPage.routeName: (_) => const RegisterPage(),
+        LoginForm.routeName: (context) => const LoginForm(),
+      },
     );
   }
 }

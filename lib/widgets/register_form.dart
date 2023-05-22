@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 
-class LoginForm extends StatefulWidget {
+class RegisterForm extends StatefulWidget {
   static const routeName = 'login';
-  const LoginForm({super.key});
+  const RegisterForm({super.key});
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<RegisterForm> createState() => _RegisterFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _RegisterFormState extends State<RegisterForm> {
   late final TextEditingController _email;
   late final TextEditingController _password;
+  late final TextEditingController _name;
 
   @override
   void initState() {
     _email = TextEditingController();
     _password = TextEditingController();
+    _name = TextEditingController();
     super.initState();
   }
 
@@ -23,6 +25,7 @@ class _LoginFormState extends State<LoginForm> {
   void dispose() {
     _email.dispose();
     _password.dispose();
+    _name.dispose();
     super.dispose();
   }
 
@@ -34,6 +37,20 @@ class _LoginFormState extends State<LoginForm> {
       right: 20,
       child: Column(
         children: <Widget>[
+          TextField(
+            controller: _name,
+            keyboardType: TextInputType.visiblePassword,
+            enableSuggestions: false,
+            autocorrect: false,
+            decoration: const InputDecoration(
+              hintText: 'User name',
+              hintStyle: TextStyle(color: Colors.black26),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black12),
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
           TextField(
             controller: _email,
             keyboardType: TextInputType.visiblePassword,
@@ -47,45 +64,21 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ),
           ),
-          Container(
-            decoration: const BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  color: Colors.black12,
-                ),
+          const SizedBox(height: 10),
+          TextField(
+            controller: _password,
+            keyboardType: TextInputType.visiblePassword,
+            obscureText: true,
+            enableSuggestions: false,
+            autocorrect: false,
+            decoration: const InputDecoration(
+              hintText: 'Password',
+              hintStyle: TextStyle(color: Colors.black26),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black12),
               ),
             ),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: TextField(
-                    controller: _password,
-                    keyboardType: TextInputType.visiblePassword,
-                    obscureText: true,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    decoration: const InputDecoration(
-                      hintText: 'Password',
-                      hintStyle: TextStyle(color: Colors.black26),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black12),
-                      ),
-                    ),
-                  ),
-                ),
-                TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'Forgot Password',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ))
-              ],
-            ),
           ),
-          const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: SizedBox(
@@ -105,12 +98,12 @@ class _LoginFormState extends State<LoginForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const Text('Are you new here?'),
+              const Text('Already have an account?'),
               TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, 'register');
+                  Navigator.pop(context);
                 },
-                child: const Text('Sign up'),
+                child: const Text('Sign in'),
               )
             ],
           ),
