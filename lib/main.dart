@@ -1,34 +1,68 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasty_bites/constants/routes.dart';
+import 'package:tasty_bites/helpers/loading/loading_screen.dart';
 import 'package:tasty_bites/pages/forgot_password_page.dart';
-import 'package:tasty_bites/pages/home_page.dart';
+import 'package:tasty_bites/pages/login_page.dart';
 import 'package:tasty_bites/pages/random_food_page.dart';
 import 'package:tasty_bites/pages/register_page.dart';
-import 'package:tasty_bites/widgets/login_form.dart';
+import 'package:tasty_bites/pages/verify_email_page.dart';
+import 'package:tasty_bites/services/auth/bloc/auth_bloc.dart';
+import 'package:tasty_bites/services/auth/bloc/auth_event.dart';
+import 'package:tasty_bites/services/auth/bloc/auth_state.dart';
+import 'package:tasty_bites/services/auth/firebase_auth_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  //1º---Binding
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: BlocProvider<AuthBloc>(
+        create: (context) => AuthBloc(FirebaseAuthProvider()),
+        child: const RandomFoodPage(),
+      ),
+      routes: {
+        randomFoodRoute: (context) => const RandomFoodPage(),
+      },
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const HomePage(),
-      routes: {
-        registerRoute: (_) => const RegisterPage(),
-        loginRoute: (_) => const LoginForm(),
-        forgotPasswordRoute: (_) => const ForgotPasswordPage(),
-        randomFoodRoute: (_) => const RandomFoodPage()
+    context.read<AuthBloc>().add(const AuthEventInitialize());
+    return BlocConsumer<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state.isLoading) {
+          LoadingScreen().show(
+            context: context,
+            text: state.loadingText ?? 'Please wait a moment',
+          );
+        } else {
+          LoadingScreen().hide();
+        }
+      },
+      builder: (context, state) {
+        if (state is AuthStateLoggedIn) {
+          return const RandomFoodPage();
+        } else if (state is AuthStateNeedsVerification) {
+          return const VerifyEmailPage();
+        } else if (state is AuthStateLoggedOut) {
+          return const LoginPage();
+        } else if (state is AuthStateForgotPassword) {
+          return const ForgotPasswordPage();
+        } else if (state is AuthStateRegistering) {
+          return const RegisterPage();
+        } else {
+          return const Scaffold(
+            body: CircularProgressIndicator(),
+          );
+        }
       },
     );
   }

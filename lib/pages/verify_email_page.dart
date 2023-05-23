@@ -1,20 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasty_bites/services/auth/bloc/auth_bloc.dart';
 import 'package:tasty_bites/services/auth/bloc/auth_event.dart';
 import 'package:tasty_bites/utilities/responsive.dart';
 import 'package:tasty_bites/widgets/figures/circle.dart';
-import 'package:tasty_bites/widgets/register_form.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+class VerifyEmailPage extends StatefulWidget {
+  const VerifyEmailPage({super.key});
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<VerifyEmailPage> createState() => _VerifyEmailPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _VerifyEmailPageState extends State<VerifyEmailPage> {
   @override
   Widget build(BuildContext context) {
     final Responsive responsive = Responsive.of(context);
@@ -22,16 +20,15 @@ class _RegisterPageState extends State<RegisterPage> {
 
     return Scaffold(
       body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
-        child: SingleChildScrollView(
-          child: Container(
-            width: double.infinity,
-            height: responsive.height,
-            color: Colors.white,
-            child: Stack(
-              children: <Widget>[
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: SingleChildScrollView(
+            child: Container(
+              width: double.infinity,
+              height: responsive.height,
+              color: Colors.white,
+              child: Stack(children: <Widget>[
                 Positioned(
                   top: -(size.width * 0.8) * 0.3,
                   left: -(size.width * 0.8) * 0.2,
@@ -59,12 +56,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     SizedBox(
                       height: responsive.dp(3),
                     ),
-                    const SizedBox(height: 80),
+                    const SizedBox(height: 60),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          "Hello!",
+                          "Verify email",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 18,
@@ -73,15 +70,19 @@ class _RegisterPageState extends State<RegisterPage> {
                         )
                       ],
                     ),
+                    const SizedBox(height: 10),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(
-                          "Sign up to get started",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.white70,
+                        SizedBox(
+                          width: 300,
+                          child: Text(
+                            "We've sent you an email verification. Please open it so verify your account. If you haven´t received a verification email yet, press the button below.",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.white70,
+                            ),
                           ),
                         ),
                       ],
@@ -101,60 +102,37 @@ class _RegisterPageState extends State<RegisterPage> {
                               ]),
                           child: ClipOval(
                             child: Image.network(
-                              'https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-PNG-Pic-Clip-Art-Background.png',
+                              'https://t3.ftcdn.net/jpg/03/57/18/66/360_F_357186696_iyzZk8MNLmoAY13k2bNjqGHugsxbLYIt.jpg',
                               width: 90,
                               height: 90,
                             ),
                           ),
                         ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: CupertinoButton(
-                            padding: EdgeInsets.zero,
-                            borderRadius: BorderRadius.circular(30),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.pinkAccent,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: Colors.white,
-                                    width: 2,
-                                  )),
-                              child: const Icon(
-                                Icons.add,
-                                color: Colors.white,
-                              ),
-                            ),
-                            onPressed: () {},
-                          ),
-                        )
                       ],
                     ),
+                    const SizedBox(height: 40),
+                    TextButton(
+                      onPressed: () {
+                        context.read<AuthBloc>().add(
+                              const AuthEventSendEmailVerification(),
+                            );
+                      },
+                      child: const Text('Send email verification'),
+                    ),
+                    const SizedBox(height: 20),
+                    TextButton(
+                      onPressed: () async {
+                        context.read<AuthBloc>().add(
+                              const AuthEventLogOut(),
+                            );
+                      },
+                      child: const Text('Restart'),
+                    )
                   ],
                 ),
-                const RegisterForm(),
-                Positioned(
-                    left: 15,
-                    top: 15,
-                    child: SafeArea(
-                      child: CupertinoButton(
-                        color: Colors.black26,
-                        padding: const EdgeInsets.all(10),
-                        borderRadius: BorderRadius.circular(30),
-                        child: const Icon(Icons.arrow_back),
-                        onPressed: () {
-                          context.read<AuthBloc>().add(
-                                const AuthEventLogOut(),
-                              );
-                        },
-                      ),
-                    ))
-              ],
+              ]),
             ),
-          ),
-        ),
-      ),
+          )),
     );
   }
 }

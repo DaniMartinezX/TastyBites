@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tasty_bites/services/auth/bloc/auth_bloc.dart';
+import 'package:tasty_bites/services/auth/bloc/auth_event.dart';
 import 'package:tasty_bites/utilities/responsive.dart';
 import 'package:tasty_bites/widgets/figures/circle.dart';
 import 'package:tasty_bites/widgets/forgot_password_form.dart';
@@ -123,7 +126,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         borderRadius: BorderRadius.circular(30),
                         child: const Icon(Icons.arrow_back),
                         onPressed: () {
-                          Navigator.pop(context);
+                          context.read<AuthBloc>().add(
+                                const AuthEventLogOut(),
+                              );
                         },
                       ),
                     ))
