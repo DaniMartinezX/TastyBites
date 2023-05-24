@@ -6,6 +6,7 @@ import 'package:tasty_bites/pages/forgot_password_page.dart';
 import 'package:tasty_bites/pages/login_page.dart';
 import 'package:tasty_bites/pages/random_food_page.dart';
 import 'package:tasty_bites/pages/register_page.dart';
+import 'package:tasty_bites/pages/search_food_page.dart';
 import 'package:tasty_bites/pages/verify_email_page.dart';
 import 'package:tasty_bites/services/auth/bloc/auth_bloc.dart';
 import 'package:tasty_bites/services/auth/bloc/auth_event.dart';
@@ -20,10 +21,11 @@ void main() {
       debugShowCheckedModeBanner: false,
       home: BlocProvider<AuthBloc>(
         create: (context) => AuthBloc(FirebaseAuthProvider()),
-        child: const RandomFoodPage(),
+        child: const SearchFood(),
       ),
       routes: {
         randomFoodRoute: (context) => const RandomFoodPage(),
+        searchFoodRoute: (context) => const SearchFood(),
       },
     ),
   );
