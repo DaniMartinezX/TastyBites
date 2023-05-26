@@ -16,7 +16,7 @@ class RandomFoodPage extends StatefulWidget {
 }
 
 class _RandomFoodPageState extends State<RandomFoodPage> {
-  late List<Meals>? _randomMeal = [];
+  List<Meals>? _randomMeal;
 
   @override
   void initState() {

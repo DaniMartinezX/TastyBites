@@ -13,10 +13,10 @@ class SearchFood extends StatefulWidget {
 }
 
 class _SearchFoodState extends State<SearchFood> {
-  late List<Meals>? _mealByName = [];
-  late List<Meals>? _mealById = [];
-  late List<Categories>? _categories = [];
-  late List<FilterCategory>? _mealsByCategory = [];
+  List<Meals>? _mealByName;
+  List<Meals>? _mealById;
+  List<Categories>? _categories;
+  List<FilterCategory>? _mealsByCategory;
   final String _searchName = "apple";
   final String _idMeal = "52775";
   final String _category = "Seafood";
