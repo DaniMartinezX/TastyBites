@@ -91,7 +91,6 @@ class ApiService {
   }
 
   Future<List<FilterCategory>?> getMealByCategory(
-      //Funciona
       {required String category}) async {
     try {
       var url = Uri.parse("${ApiConstants.baseUrl}/filter.php?c=$category");

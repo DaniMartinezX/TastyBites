@@ -5,4 +5,6 @@ abstract class ApiEvent {
   const ApiEvent();
 }
 
-class FetchDataEvent extends ApiEvent {}
+class ApiEventGetRandomMeal extends ApiEvent {
+  const ApiEventGetRandomMeal();
+}

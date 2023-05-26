@@ -135,21 +135,22 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 const RegisterForm(),
                 Positioned(
-                    left: 15,
-                    top: 15,
-                    child: SafeArea(
-                      child: CupertinoButton(
-                        color: Colors.black26,
-                        padding: const EdgeInsets.all(10),
-                        borderRadius: BorderRadius.circular(30),
-                        child: const Icon(Icons.arrow_back),
-                        onPressed: () {
-                          context.read<AuthBloc>().add(
-                                const AuthEventLogOut(),
-                              );
-                        },
-                      ),
-                    ))
+                  left: 15,
+                  top: 15,
+                  child: SafeArea(
+                    child: CupertinoButton(
+                      color: Colors.black26,
+                      padding: const EdgeInsets.all(10),
+                      borderRadius: BorderRadius.circular(30),
+                      child: const Icon(Icons.arrow_back),
+                      onPressed: () {
+                        context.read<AuthBloc>().add(
+                              const AuthEventLogOut(),
+                            );
+                      },
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

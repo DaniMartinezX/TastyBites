@@ -21,7 +21,7 @@ void main() {
       debugShowCheckedModeBanner: false,
       home: BlocProvider<AuthBloc>(
         create: (context) => AuthBloc(FirebaseAuthProvider()),
-        child: const SearchFood(),
+        child: const HomePage(),
       ),
       routes: {
         randomFoodRoute: (context) => const RandomFoodPage(),
