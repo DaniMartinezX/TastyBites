@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasty_bites/constants/routes.dart';
 import 'package:tasty_bites/helpers/loading/loading_screen.dart';
+import 'package:tasty_bites/pages/food_info_page.dart';
 import 'package:tasty_bites/pages/forgot_password_page.dart';
 import 'package:tasty_bites/pages/login_page.dart';
 import 'package:tasty_bites/pages/random_food_page.dart';
@@ -26,6 +27,7 @@ void main() {
       routes: {
         randomFoodRoute: (context) => const RandomFoodPage(),
         searchFoodRoute: (context) => const SearchFood(),
+        FoodInfoPage.routeName: (context) => const FoodInfoPage(),
       },
     ),
   );

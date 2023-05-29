@@ -3,11 +3,13 @@ import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import 'package:tasty_bites/constants/api.dart';
+import 'package:tasty_bites/services/api/api_provider.dart';
 import 'package:tasty_bites/services/api/model/api_model.dart';
 import 'package:tasty_bites/services/api/model/categories_model.dart';
 import 'package:tasty_bites/services/api/model/filter_cat_model.dart';
+import 'package:tasty_bites/services/auth/auth_user.dart';
 
-class ApiService {
+class ApiService implements ApiProvider {
   Future<List<Meals>?> getRandomMeal() async {
     //Funciona
     try {
@@ -107,5 +109,22 @@ class ApiService {
       throw Exception('Failed to get meal by category');
     }
     return null;
+  }
+
+  @override
+  // TODO: implement currentUser
+  AuthUser? get currentUser => throw UnimplementedError();
+
+  @override
+  Future<List<Meals>> getFavorites(
+      {required String email, required String password}) {
+    // TODO: implement getFavorites
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> initialize() {
+    // TODO: implement initialize
+    throw UnimplementedError();
   }
 }

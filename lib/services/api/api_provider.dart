@@ -8,7 +8,7 @@ abstract class ApiProvider {
 
   AuthUser? get currentUser;
 
-  Future<AuthUser> getFavorites({
+  Future<List<Meals>> getFavorites({
     required String email,
     required String password,
   });
