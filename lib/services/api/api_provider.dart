@@ -16,7 +16,7 @@ abstract class ApiProvider {
   Future<List<Meals>?> getRandomMeal();
   Future<List<Categories>?> getAllCategories();
 
-  Future<List<Meals>?> getMealByName({required String name});
+  Future<List<FilterCategory>?> getMealByName({required String name});
 
   Future<List<Meals>?> getMealById({required String id});
 

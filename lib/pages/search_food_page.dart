@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tasty_bites/pages/food_info_page.dart';
 import 'package:tasty_bites/services/api/model/api_model.dart';
 import 'package:tasty_bites/services/api/model/categories_model.dart';
 import 'package:tasty_bites/services/api/model/filter_cat_model.dart';
@@ -13,13 +14,12 @@ class SearchFood extends StatefulWidget {
 }
 
 class _SearchFoodState extends State<SearchFood> {
-  List<Meals>? _mealByName;
+  List<FilterCategory>? _mealByName;
   List<Meals>? _mealById;
   List<Categories>? _categories;
   List<FilterCategory>? _mealsByCategory;
   final String _searchName = "apple";
   final String _idMeal = "52775";
-  final String _category = "Seafood";
 
   TextEditingController _searchController = TextEditingController();
   String _searchKeyword = '';
@@ -30,7 +30,6 @@ class _SearchFoodState extends State<SearchFood> {
     _getAllCategories();
     _getDataFilteredByName(name: _searchName);
     _getDataFilteredById(id: _idMeal);
-    _getDataFilteredByCategory(category: _category);
   }
 
   @override
@@ -46,11 +45,13 @@ class _SearchFoodState extends State<SearchFood> {
         ));
   }
 
-  void _getDataFilteredByName({required String name}) async {
-    _mealByName = (await ApiService().getMealByName(name: name))!;
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(
-          () {},
-        ));
+  Future<void> _getDataFilteredByName({required String name}) async {
+    List<FilterCategory>? mealsByCategory =
+        await ApiService().getMealByName(name: name);
+
+    setState(() {
+      _mealsByCategory = mealsByCategory;
+    });
   }
 
   void _getDataFilteredById({required String id}) async {
@@ -60,16 +61,51 @@ class _SearchFoodState extends State<SearchFood> {
         ));
   }
 
-  void _getDataFilteredByCategory({required String category}) async {
-    _mealsByCategory =
-        (await ApiService().getMealByCategory(category: category))!;
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(
-          () {},
-        ));
+  Future<void> _getDataFilteredByCategory({required String category}) async {
+    List<FilterCategory>? mealsByCategory =
+        await ApiService().getMealByCategory(category: category);
+
+    setState(() {
+      _mealsByCategory = mealsByCategory;
+    });
+  }
+
+  // Método para manejar la selección de una categoría
+  void _onCategorySelected(String category) {
+    _getDataFilteredByCategory(category: category).then((_) {
+      print('Búsqueda por categoría: $category');
+
+      List<FilterCategory>? filteredList;
+
+      if (_searchKeyword.isNotEmpty) {
+        _getDataFilteredByName(name: _searchKeyword).then((_) {
+          print('Búsqueda por nombre: $_searchKeyword');
+
+          if (_mealsByCategory != null && _mealByName != null) {
+            filteredList = _mealsByCategory!
+                .where((category) =>
+                    _mealByName!.any((meal) => meal.idMeal == category.idMeal))
+                .toList();
+          } else {
+            filteredList = _mealByName ?? _mealsByCategory;
+          }
+
+          setState(() {
+            _mealByName = filteredList;
+          });
+        });
+      } else {
+        setState(() {
+          _mealByName = _mealsByCategory;
+        });
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    String selectedCategory = '';
+
     return Scaffold(
       body: _categories == null || _categories!.isEmpty
           ? const Center(
@@ -146,8 +182,11 @@ class _SearchFoodState extends State<SearchFood> {
                                   width: 160.0,
                                   child: Card(
                                     child: InkWell(
-                                      onTap: () {
-                                        print("Se ha pulsado en la categoría");
+                                      onTap: () async {
+                                        selectedCategory = _categories![index]
+                                            .strCategory
+                                            .toString();
+                                        _onCategorySelected(selectedCategory);
                                       },
                                       child: Column(
                                         crossAxisAlignment:
@@ -204,7 +243,7 @@ class _SearchFoodState extends State<SearchFood> {
                         ),
                         Expanded(
                           child: ListView.builder(
-                            itemCount: _categories!.length,
+                            itemCount: _mealByName?.length ?? 1,
                             itemBuilder: (context, index) {
                               return Card(
                                 shape: RoundedRectangleBorder(
@@ -212,7 +251,16 @@ class _SearchFoodState extends State<SearchFood> {
                                 ),
                                 child: InkWell(
                                   onTap: () {
-                                    print("Se ha pulsado en la comida");
+                                    if (_mealByName != null &&
+                                        _mealByName!.isNotEmpty) {
+                                      Navigator.pushNamed(
+                                        context,
+                                        FoodInfoPage.routeName,
+                                        arguments: _mealByName![index]
+                                            .idMeal
+                                            .toString(),
+                                      );
+                                    }
                                   },
                                   child: Column(
                                     children: [
@@ -222,9 +270,10 @@ class _SearchFoodState extends State<SearchFood> {
 
                                       //_randomMeal![index].strMealThumb.toString()
                                       Image.network(
-                                        _categories![index]
-                                            .strCategoryThumb
-                                            .toString(),
+                                        _mealByName?[index]
+                                                .strMealThumb
+                                                .toString() ??
+                                            'https://img.freepik.com/vector-premium/barra-progreso-estilo-dibujo-doodle-cargando-imagen-icono-ilustracion-vector-dibujado-mano_356415-1238.jpg',
                                         fit: BoxFit.cover,
                                       ),
                                       Container(
@@ -239,9 +288,10 @@ class _SearchFoodState extends State<SearchFood> {
                                         ),
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
-                                          _categories![index]
-                                              .strCategory
-                                              .toString(),
+                                          _mealByName?[index]
+                                                  .strMeal
+                                                  .toString() ??
+                                              '',
                                           textAlign: TextAlign
                                               .center, // Reemplaza 'itemName' con el nombre real del item
                                           style: const TextStyle(

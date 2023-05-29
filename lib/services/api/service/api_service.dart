@@ -51,7 +51,7 @@ class ApiService implements ApiProvider {
     return null;
   }
 
-  Future<List<Meals>?> getMealByName({required String name}) async {
+  Future<List<FilterCategory>?> getMealByName({required String name}) async {
     //Funciona
     try {
       //1º step: hit the GET HTTP request.
@@ -61,8 +61,9 @@ class ApiService implements ApiProvider {
 
       //2º step: check wheter the API call was successful or not.
       if (response.statusCode == 200) {
-        var apiModel = ApiModel.fromJson(jsonResponse);
-        List<Meals>? meals = apiModel.meals;
+        List<FilterCategory>? meals = (jsonResponse['meals'] as List<dynamic>)
+            .map((json) => FilterCategory.fromJson(json))
+            .toList();
         return meals;
       }
     } catch (e) {

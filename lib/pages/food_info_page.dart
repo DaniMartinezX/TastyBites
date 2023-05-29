@@ -111,7 +111,7 @@ class _FoodInfoPageState extends State<FoodInfoPage> {
                     Column(
                       children: [
                         Text(
-                          _mealById![0].strMeal.toString(),
+                          _mealById?[0].strMeal.toString() ?? '',
                           textAlign: TextAlign
                               .center, // Reemplaza 'itemName' con el nombre real del item
                           style: const TextStyle(
@@ -123,7 +123,7 @@ class _FoodInfoPageState extends State<FoodInfoPage> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          _mealById![0].strCategory.toString(),
+                          _mealById?[0].strCategory.toString() ?? '',
                           textAlign: TextAlign
                               .center, // Reemplaza 'itemName' con el nombre real del item
                           style: const TextStyle(
@@ -150,7 +150,8 @@ class _FoodInfoPageState extends State<FoodInfoPage> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(18.0),
                                   child: Text(
-                                    _mealById![0].strInstructions.toString(),
+                                    _mealById?[0].strInstructions.toString() ??
+                                        '',
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(
                                       color: Colors.white,
