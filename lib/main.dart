@@ -13,6 +13,7 @@ import 'package:tasty_bites/services/auth/bloc/auth_bloc.dart';
 import 'package:tasty_bites/services/auth/bloc/auth_event.dart';
 import 'package:tasty_bites/services/auth/bloc/auth_state.dart';
 import 'package:tasty_bites/services/auth/firebase_auth_provider.dart';
+import 'package:tasty_bites/widgets/navigator_bar.dart';
 
 void main() {
   //1º---Binding
@@ -53,7 +54,7 @@ class HomePage extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is AuthStateLoggedIn) {
-          return const RandomFoodPage();
+          return const NavigatorBar();
         } else if (state is AuthStateNeedsVerification) {
           return const VerifyEmailPage();
         } else if (state is AuthStateLoggedOut) {
