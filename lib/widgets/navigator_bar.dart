@@ -13,7 +13,7 @@ class NavigatorBar extends StatefulWidget {
 class _NavigatorBarState extends State<NavigatorBar> {
   int _currentIndex = 0;
   final PageController _pageController = PageController();
-  final List<Widget> _screens = const [
+  final List<Widget> _screens = [
     RandomFoodPage(),
     FavoritesPage(),
     ProfilePage(),

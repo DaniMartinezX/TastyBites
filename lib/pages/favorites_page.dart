@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tasty_bites/pages/favorites_list_page.dart';
+import 'package:tasty_bites/pages/food_info_page.dart';
+import 'package:tasty_bites/services/auth/auth_service.dart';
+import 'package:tasty_bites/services/cloud/cloud_favorite.dart';
+import 'package:tasty_bites/services/cloud/firebase_cloud_storage.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
@@ -8,6 +13,15 @@ class FavoritesPage extends StatefulWidget {
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {
+  late final FirebaseCloudStorage _favoritesService;
+  String get userId => AuthService.firebase().currentUser!.id;
+
+  @override
+  void initState() {
+    _favoritesService = FirebaseCloudStorage();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +41,34 @@ class _FavoritesPageState extends State<FavoritesPage> {
           ),
         ),
       ),
-      //body: ,
+      body: StreamBuilder(
+        stream: _favoritesService.allFavorites(ownerUserId: userId),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+            case ConnectionState.active:
+              if (snapshot.hasData) {
+                final allFavorites = snapshot.data as Iterable<CloudFavorite>;
+                return FavoritesListPage(
+                  favorites: allFavorites,
+                  onDeleteFavorite: (favorite) async {
+                    await _favoritesService.deleteFavorite(
+                        documentId: favorite.documentId);
+                  },
+                  onTap: (favorite) {
+                    Navigator.of(context).pushNamed(FoodInfoPage.routeName,
+                        arguments: favorite.idMeal);
+                  },
+                );
+              } else {
+                return const CircularProgressIndicator();
+              }
+            default:
+              return const CircularProgressIndicator();
+          }
+        },
+      ),
     );
   }
 }
+//TODO 
